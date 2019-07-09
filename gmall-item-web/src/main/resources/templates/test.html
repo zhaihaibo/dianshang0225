@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+</head>
+<body>
+
+取值： <input th:value="${hello}" /><br/>
+
+<!--${list}代表循环体 ，str代表循环中每一个元素 -->
+循环： <input th:value="${str}" th:each="str:${list}" />
+        <div th:each="str:${list}" ><input th:value="${str}" /></div>
+<!-- ?是调用之前理智做出判断， 不会出现异常  -->
+循环2： <input th:value="${str?.nickname}" th:each="str:${list1}" /><br>
+
+判断： <input th:if="${hehe=='1'}" placeholder="等式成立，这个标签就存在，反之这个标签不存在！" /><br>
+
+<!--${num}如果是字符串，需要这样！ -->
+调用js：   <a th:href = "'javascript:a(\''+${num}+'\')'">点我</a>
+
+包含：     <div th:include="a::b"></div>
+
+测试复选框的选中状态
+        <input type="checkbox" th:checked="${check=='8 '}?true:false">
+
+
+    <script language="JavaScript">
+        function a(num) {
+            alert(num);
+        }
+
+    </script>
+<!--a::b 代表当前div要包含a.html中的同为thymleaf的b -->
+
+</body>
+</html>
