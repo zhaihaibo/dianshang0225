@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface SkuService {
 
-    List<PmsProductSaleAttr> spuSaleAttrListCheckBySkuId(String spuId,String skuId);
+    List<PmsProductSaleAttr> spuSaleAttrListCheckBySkuId(String spuId, String skuId);
 
     List<PmsSkuInfo> checkSkuBySpuId(String spuId);
 
@@ -21,7 +21,7 @@ public interface SkuService {
 
     PmsSkuInfo getSkuInfoByIdFromDB(String skuId);
 
-    PmsSkuInfo getSkuInfoById(String skuid ,String ip);
+    PmsSkuInfo getSkuInfoById(String skuid, String ip);
 
 
     List<PmsSkuInfo> getAllSku();

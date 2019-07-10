@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+
 /**
  * @param
  * @return
@@ -20,7 +21,7 @@ public class CookieUtil {
      */
     public static String getCookieValue(HttpServletRequest request, String cookieName, boolean isDecoder) {
         Cookie[] cookies = request.getCookies();//默认取，xxx.gmall.com，cookie默认取二级域名下的，不放在localhost
-        if (cookies == null || cookieName == null){
+        if (cookies == null || cookieName == null) {
             return null;
         }
         String retValue = null;
@@ -40,6 +41,7 @@ public class CookieUtil {
         }
         return retValue;
     }
+
     /***
      * 设置cookie的值
      * @param request
@@ -49,7 +51,7 @@ public class CookieUtil {
      * @param cookieMaxage
      * @param isEncode
      */
-    public static   void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
+    public static void setCookie(HttpServletRequest request, HttpServletResponse response, String cookieName, String cookieValue, int cookieMaxage, boolean isEncode) {
         try {
             if (cookieValue == null) {
                 cookieValue = "";
@@ -68,6 +70,7 @@ public class CookieUtil {
             e.printStackTrace();
         }
     }
+
     /***
      * 获得cookie的主域名，本系统为.gmall.com，保存时使用
      * @param request
@@ -102,6 +105,7 @@ public class CookieUtil {
         System.out.println("domainName = " + domainName);
         return domainName;
     }
+
     /***
      * 将cookie中的内容按照key删除
      * @param request

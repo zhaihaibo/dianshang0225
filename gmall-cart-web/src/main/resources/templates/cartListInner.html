@@ -27,22 +27,24 @@
 
         <div class="One_ShopCon">
             <ul>
-                <li  th:each="cartInfo:${cartList}">
-                    <div> </div>
+                <li th:each="cartInfo:${cartList}">
+                    <div></div>
 
                     <div>
                         <ol>
-                            <li><input type="checkbox"   class="check"  th:value="${cartInfo.productSkuId}"  onchange="checkSku(this)" th:checked="(${cartInfo.isChecked}==1)?'true':'false'" /></li>
+                            <li><input type="checkbox" class="check" th:value="${cartInfo.productSkuId}"
+                                       onchange="checkSku(this)"
+                                       th:checked="(${cartInfo.isChecked}==1)?'true':'false'"/></li>
                             <li>
-                                <dt><img  th:src="${cartInfo.productPic}"  src="img\shop1.jpg" alt=""></dt>
-                                <dd  th:onclick="'toItem('+${cartInfo.productSkuId}+')'">
+                                <dt><img th:src="${cartInfo.productPic}" src="img\shop1.jpg" alt=""></dt>
+                                <dd th:onclick="'toItem('+${cartInfo.productSkuId}+')'">
                                     <p>
-                                        <span th:text="${cartInfo.productName}" >TCL 55A950C 55英寸32核</span>
+                                        <span th:text="${cartInfo.productName}">TCL 55A950C 55英寸32核</span>
                                     </p>
                                 </dd>
                             </li>
                             <li>
-                                <p class="dj" th:text="'￥'+${cartInfo.price}" >4599.00</p>
+                                <p class="dj" th:text="'￥'+${cartInfo.price}">4599.00</p>
                             </li>
                             <li>
                                 <p>
@@ -51,7 +53,8 @@
                                     <span>+</span>
                                 </p>
                             </li>
-                            <li style="font-weight:bold"><p class="zj" th:text="'￥'+${cartInfo.totalPrice}"  >￥22995.00</p></li>
+                            <li style="font-weight:bold"><p class="zj" th:text="'￥'+${cartInfo.totalPrice}">
+                                ￥22995.00</p></li>
                             <li>
                                 <p>删除</p>
                             </li>
@@ -79,11 +82,14 @@
             </div>
             <div>
                 <ol>
-                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt" th:text="${sumPrice}">￥0.00</span>  </li>
+                    <li>总价:<span style="color:#e64346;font-weight:bold;font-size:16px;" class="fnt"
+                                 th:text="${sumPrice}">￥0.00</span></li>
 
                 </ol>
             </div>
-            <div><button  onclick="toTrade()" type="button">去结算</button></div>
+            <div>
+                <button onclick="toTrade()" type="button">去结算</button>
+            </div>
         </div>
     </div>
 </div>

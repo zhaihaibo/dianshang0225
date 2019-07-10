@@ -9,10 +9,9 @@ public class IndexController {
 
 
     @RequestMapping("index")
-    public String toIndex(){
+    public String toIndex() {
         return "index";
     }
-
 
 
 }

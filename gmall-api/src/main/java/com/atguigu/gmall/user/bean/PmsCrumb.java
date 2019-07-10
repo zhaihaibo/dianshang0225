@@ -1,8 +1,8 @@
 package com.atguigu.gmall.user.bean;
 
 public class PmsCrumb {
-    private  String valueName;
-    private  String urlParam;
+    private String valueName;
+    private String urlParam;
 
     public String getValueName() {
         return valueName;

@@ -30,7 +30,7 @@ public class CatalogController {
 
 
     @RequestMapping("index")
-    public String test(){
+    public String test() {
         return "卧槽！";
     }
 
@@ -46,18 +46,16 @@ public class CatalogController {
 
 
     @RequestMapping("getCatalog2")
-    public List<PmsBaseCatalog2> getCatalog2(String catalog1Id){
+    public List<PmsBaseCatalog2> getCatalog2(String catalog1Id) {
         List<PmsBaseCatalog2> catalog2 = catalogService.getCatalog2(catalog1Id);
         return catalog2;
     }
 
 
     @RequestMapping("getCatalog3")
-    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id){
-       return  catalogService.getCatalog3(catalog2Id);
+    public List<PmsBaseCatalog3> getCatalog3(String catalog2Id) {
+        return catalogService.getCatalog3(catalog2Id);
     }
-
-
 
 
 }

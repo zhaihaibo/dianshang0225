@@ -21,22 +21,23 @@ public class AttrController {
     AttrService attrService;
 
     @RequestMapping("attrInfoList")
-    public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id){
+    public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
 
         List<PmsBaseAttrInfo> list = attrService.attrInfoList(catalog3Id);
 
         return list;
 
     }
+
     @RequestMapping("saveAttrInfo")
-    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo){
+    public String saveAttrInfo(@RequestBody PmsBaseAttrInfo pmsBaseAttrInfo) {
 
         attrService.saveAttrInfo(pmsBaseAttrInfo);
         return "success";
     }
 
     @RequestMapping("getAttrValueList")
-    public List<PmsBaseAttrValue> updata(String attrId){
+    public List<PmsBaseAttrValue> updata(String attrId) {
         List<PmsBaseAttrValue> attrInfo = attrService.getAttrValue(attrId);
 
         return attrInfo;

@@ -11,12 +11,11 @@ import java.util.List;
 public interface PmsSkuSaleAttrValueMapper extends Mapper<PmsSkuSaleAttrValue> {
 
 
-
     List<PmsSkuSaleAttrValue> checkSkuByValueIds(@Param("join") String join);
 
     List<PmsSkuInfo> checkSkuByValueIdsTwo(@Param("join") String join);
 
     List<PmsSkuInfo> checkSkuBySpuId(@Param("spuId") String spuId);
 
-    List<PmsProductSaleAttr> selectSpuSaleAttrListCheckBySkuId(@Param("spuId") String spuId,@Param("skuId") String skuId);
+    List<PmsProductSaleAttr> selectSpuSaleAttrListCheckBySkuId(@Param("spuId") String spuId, @Param("skuId") String skuId);
 }

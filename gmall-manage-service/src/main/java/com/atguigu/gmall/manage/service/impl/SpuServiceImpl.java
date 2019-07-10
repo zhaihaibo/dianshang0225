@@ -23,10 +23,10 @@ public class SpuServiceImpl implements SpuService {
     @Autowired
     PmsProductImageMapper pmsProductImageMapper;
 
-    public List<PmsProductInfo> spuList( String catalog3Id){
-        PmsProductInfo pmsProductInfo =  new PmsProductInfo();
+    public List<PmsProductInfo> spuList(String catalog3Id) {
+        PmsProductInfo pmsProductInfo = new PmsProductInfo();
         pmsProductInfo.setCatalog3Id(catalog3Id);
-      return   pmsProductInfoMapper.select(pmsProductInfo);
+        return pmsProductInfoMapper.select(pmsProductInfo);
     }
 
     @Override
@@ -61,7 +61,6 @@ public class SpuServiceImpl implements SpuService {
             pmsProductImage.setProductId(id);
             pmsProductImageMapper.insert(pmsProductImage);
         }
-
 
 
     }

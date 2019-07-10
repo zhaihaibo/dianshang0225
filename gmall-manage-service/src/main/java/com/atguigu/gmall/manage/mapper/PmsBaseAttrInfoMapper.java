@@ -6,6 +6,6 @@ import tk.mybatis.mapper.common.Mapper;
 
 import java.util.List;
 
-public interface PmsBaseAttrInfoMapper  extends Mapper<PmsBaseAttrInfo> {
+public interface PmsBaseAttrInfoMapper extends Mapper<PmsBaseAttrInfo> {
     List<PmsBaseAttrInfo> selectAttrValueByValueIds(@Param("join") String join);
 }

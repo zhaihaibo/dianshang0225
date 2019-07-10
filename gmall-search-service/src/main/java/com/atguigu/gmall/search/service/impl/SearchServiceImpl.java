@@ -43,12 +43,12 @@ public class SearchServiceImpl implements SearchService {
         //从查询结果中得到指定valueId的source内容
         List<PmsSearchSkuInfo> list = new ArrayList<>();
         List<SearchResult.Hit<PmsSearchSkuInfo, Void>> hits = searchResult.getHits(PmsSearchSkuInfo.class);
-        if (hits!=null&&hits.size()>0) {
+        if (hits != null && hits.size() > 0) {
             for (SearchResult.Hit<PmsSearchSkuInfo, Void> hit : hits) {
                 PmsSearchSkuInfo source = hit.source;
                 //解析高亮
                 Map<String, List<String>> highlight = hit.highlight;
-                if (highlight!=null&&highlight.size()>0) {
+                if (highlight != null && highlight.size() > 0) {
                     List<String> list1 = highlight.get("skuName");
                     source.setSkuName(list1.get(0));
                 }
@@ -79,7 +79,7 @@ public class SearchServiceImpl implements SearchService {
         }
 
         String catalog3Id = pmsSearchParam.getCatalog3Id();
-        if(StringUtils.isNotBlank(catalog3Id)){
+        if (StringUtils.isNotBlank(catalog3Id)) {
             TermQueryBuilder termQueryBuilder = new TermQueryBuilder("catalog3Id", catalog3Id);
             boolQueryBuilder.filter(termQueryBuilder);
         }

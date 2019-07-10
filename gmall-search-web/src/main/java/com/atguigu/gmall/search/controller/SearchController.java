@@ -82,7 +82,7 @@ public class SearchController {
 
                 PmsCrumb pmsCrumb = new PmsCrumb();
                 //设置面包屑的地址属性
-                pmsCrumb.setUrlParam(getUrlParam(pmsSearchParam,s));
+                pmsCrumb.setUrlParam(getUrlParam(pmsSearchParam, s));
                 //查询PmsBaseAttrInfo集合
                 Iterator<PmsBaseAttrInfo> iterator = pmsBaseAttrInfos.iterator();
                 while (iterator.hasNext()) {

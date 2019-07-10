@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-public class PmsSearchSkuInfo implements Serializable{
+public class PmsSearchSkuInfo implements Serializable {
 
     @Id
     private long id;

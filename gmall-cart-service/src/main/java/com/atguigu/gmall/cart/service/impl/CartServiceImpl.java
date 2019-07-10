@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 
 @Service
-public class CartServiceImpl  implements CartService {
+public class CartServiceImpl implements CartService {
 
     @Autowired
     OmsCartItemMapper omsCartItemMapper;
@@ -51,12 +51,11 @@ public class CartServiceImpl  implements CartService {
         Example.Criteria criteria = example.createCriteria();
         criteria.andEqualTo(omsCartItemExist.getId());
 
-        omsCartItemMapper.updateByExampleSelective(omsCartItemExist,example);
+        omsCartItemMapper.updateByExampleSelective(omsCartItemExist, example);
 
         //调用同步缓存
 
         setCache(omsCartItemExist.getMemberId());
-
 
 
     }
@@ -83,11 +82,11 @@ public class CartServiceImpl  implements CartService {
             for (String hval : hvals) {
 
                 OmsCartItem omsCartItem1 = JSON.parseObject(hval, OmsCartItem.class);
-               omsCartItem1.setTotalPrice(omsCartItem1.getPrice().multiply(omsCartItem1.getQuantity()));
+                omsCartItem1.setTotalPrice(omsCartItem1.getPrice().multiply(omsCartItem1.getQuantity()));
                 omsCartItems.add(omsCartItem1);
             }
 
-        }finally {
+        } finally {
             jedis.close();
         }
 
@@ -103,31 +102,31 @@ public class CartServiceImpl  implements CartService {
 
         //根据skuid和member进行更新
         Example example = new Example(OmsCartItem.class);
-        example.createCriteria().andEqualTo("productSkuId",omsCartItem.getProductSkuId()).andEqualTo("memberId",omsCartItem.getMemberId());
+        example.createCriteria().andEqualTo("productSkuId", omsCartItem.getProductSkuId()).andEqualTo("memberId", omsCartItem.getMemberId());
 
-        omsCartItemMapper.updateByExampleSelective(cartItem,example);
+        omsCartItemMapper.updateByExampleSelective(cartItem, example);
 
         //刷新缓存
         setCache(omsCartItem.getMemberId());
     }
 
     //缓存
-private void  setCache(String memberId){
-     Jedis jedis = null;
-     try {
-         jedis = redisUtil.getJedis();
-         OmsCartItem omsCartItem = new OmsCartItem();
-         omsCartItem.setMemberId(memberId);
-         List<OmsCartItem> omsCartItems = omsCartItemMapper.select(omsCartItem);
-         HashMap<String, String> hashMap = new HashMap<>();
-         for (OmsCartItem cartItem : omsCartItems) {
-             hashMap.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
-         }
-         String key = "user:"+memberId+":cart";
-         jedis.hmset(key,hashMap);
-     }finally {
-         jedis.close();
-     }
-}
+    private void setCache(String memberId) {
+        Jedis jedis = null;
+        try {
+            jedis = redisUtil.getJedis();
+            OmsCartItem omsCartItem = new OmsCartItem();
+            omsCartItem.setMemberId(memberId);
+            List<OmsCartItem> omsCartItems = omsCartItemMapper.select(omsCartItem);
+            HashMap<String, String> hashMap = new HashMap<>();
+            for (OmsCartItem cartItem : omsCartItems) {
+                hashMap.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
+            }
+            String key = "user:" + memberId + ":cart";
+            jedis.hmset(key, hashMap);
+        } finally {
+            jedis.close();
+        }
+    }
 
 }

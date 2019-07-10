@@ -12,9 +12,6 @@ public interface AttrService {
     void saveAttrInfo(PmsBaseAttrInfo pmsBaseAttrInfo);
 
 
-
-
-
     List<PmsBaseAttrValue> getAttrValue(String attrId);
 
     List<PmsBaseAttrInfo> getAttrValueByValueIds(HashSet<String> set);

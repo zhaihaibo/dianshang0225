@@ -26,10 +26,11 @@ public class PmsProductInfo implements Serializable {
     private String description;
 
     @Column
-    private  String catalog3Id;
+    private String catalog3Id;
     @Transient
     private String spuId;
-    public String getSpuId(){
+
+    public String getSpuId() {
         return this.spuId;
     }
 

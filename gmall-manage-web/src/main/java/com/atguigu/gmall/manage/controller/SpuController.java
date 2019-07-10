@@ -22,22 +22,23 @@ public class SpuController {
     SpuService spuService;
 
     @RequestMapping("spuSaleAttrList")
-    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId){
+    public List<PmsProductSaleAttr> spuSaleAttrList(String spuId) {
         List<PmsProductSaleAttr> saleAttrs = spuService.spuSaleAttrList(spuId);
 
         return saleAttrs;
 
     }
+
     @RequestMapping("spuImageList")
-    public List<PmsProductImage> spuImageList(String spuId){
-       List<PmsProductImage> images = spuService.spuImageList(spuId);
-        return  images;
+    public List<PmsProductImage> spuImageList(String spuId) {
+        List<PmsProductImage> images = spuService.spuImageList(spuId);
+        return images;
     }
 
 
     @RequestMapping("spuList")
 
-    public List<PmsProductInfo> spuList(String catalog3Id){
+    public List<PmsProductInfo> spuList(String catalog3Id) {
 
         List<PmsProductInfo> pmsProductInfos = spuService.spuList(catalog3Id);
 
@@ -45,20 +46,20 @@ public class SpuController {
     }
 
     @RequestMapping("baseSaleAttrList")
-    public List<PmsBaseSaleAttr>  baseSaleAttrList(){
+    public List<PmsBaseSaleAttr> baseSaleAttrList() {
         List<PmsBaseSaleAttr> pmsBaseSaleAttrs = spuService.baseSaleAttrList();
         return pmsBaseSaleAttrs;
 
     }
 
     @RequestMapping("saveSpuInfo")
-    public String saveSpuInfo(@RequestBody PmsProductInfo productInfo){
+    public String saveSpuInfo(@RequestBody PmsProductInfo productInfo) {
         spuService.saveSpuInfo(productInfo);
         return "success!";
     }
 
     @RequestMapping("fileUpload")
-    public String fileUpload(@RequestParam("file")MultipartFile multipartFile){
+    public String fileUpload(@RequestParam("file") MultipartFile multipartFile) {
 
 
         // 调用图片服务器，上传图片，返回服务器的url图片地址

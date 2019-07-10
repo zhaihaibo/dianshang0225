@@ -11,7 +11,7 @@ import java.io.IOException;
 
 public class MyUploadUtil {
 
-    public static String uploadImage(MultipartFile multipartFile)  {
+    public static String uploadImage(MultipartFile multipartFile) {
         String url = "http://192.168.100.100";
         //获取配置文件的全局路径
         String path = MyUploadUtil.class.getClassLoader().getResource("tracker.conf").getPath();
@@ -34,17 +34,16 @@ public class MyUploadUtil {
             //上传图片，结果为地址细分后的数组，还需要遍历组合成一个地址
             String[] jpgs = storageClient.upload_file(bytes, substring, null);
             for (String jpg : jpgs) {
-                System.out.println(jpg+"---------");
-                url += "/"+jpg;
-                System.out.println(jpg+"1111111111");
+                System.out.println(jpg + "---------");
+                url += "/" + jpg;
+                System.out.println(jpg + "1111111111");
             }
 
-        }  catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
 
-
-        return  url;
+        return url;
     }
 }

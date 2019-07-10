@@ -19,12 +19,12 @@ public class RedisConfig {
     private int database;
 
     @Bean
-    public RedisUtil getRedisUtil(){
-        if(host.equals("disabled")){
+    public RedisUtil getRedisUtil() {
+        if (host.equals("disabled")) {
             return null;
         }
-        RedisUtil redisUtil=new RedisUtil();
-        redisUtil.initPool(host,port,database);
+        RedisUtil redisUtil = new RedisUtil();
+        redisUtil.initPool(host, port, database);
         return redisUtil;
     }
 

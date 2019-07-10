@@ -23,19 +23,19 @@ public class TestRedission {
 
     @RequestMapping("testItem")
     @ResponseBody
-    public String testItem(){
+    public String testItem() {
         Jedis jedis = redisUtil.getJedis();// redis链接
         RLock lock = redissonClient.getLock("sku:111:lock");
         String v = "";
         lock.lock();
         try {
             v = jedis.get("k");//获取value
-            if(StringUtils.isBlank(v)){
+            if (StringUtils.isBlank(v)) {
                 v = "1";
             }
-            System.err.println("==>"+v);//打印value
+            System.err.println("==>" + v);//打印value
             long inum = Long.parseLong(v);//获得value的值
-            jedis.set("k", inum+1+"");//value增加1
+            jedis.set("k", inum + 1 + "");//value增加1
 
         } finally {
             lock.unlock();

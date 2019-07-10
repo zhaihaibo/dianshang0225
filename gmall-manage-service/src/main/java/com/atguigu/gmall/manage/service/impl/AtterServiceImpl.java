@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 @Service
 public class AtterServiceImpl implements AttrService {
     @Autowired
@@ -23,7 +24,6 @@ public class AtterServiceImpl implements AttrService {
     public List<PmsBaseAttrInfo> attrInfoList(String catalog3Id) {
 
 
-        
         PmsBaseAttrInfo pmsBaseAttrInfo = new PmsBaseAttrInfo();
         pmsBaseAttrInfo.setCatalog3Id(catalog3Id);
         List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.select(pmsBaseAttrInfo);
@@ -56,7 +56,7 @@ public class AtterServiceImpl implements AttrService {
                 pmsBaseAttrValue.setAttrId(id);
                 pmsBaseAttrValueMapper.insertSelective(pmsBaseAttrValue);
             }
-        }else {
+        } else {
             //先删除
             PmsBaseAttrValue pmsBaseAttrValue = new PmsBaseAttrValue();
             pmsBaseAttrValue.setAttrId(id1);
@@ -69,8 +69,6 @@ public class AtterServiceImpl implements AttrService {
             }
 
         }
-
-
 
 
     }
@@ -99,8 +97,8 @@ public class AtterServiceImpl implements AttrService {
         return baseAttrInfos;*/
 
         String join = StringUtils.join(set, ",");
-       List<PmsBaseAttrInfo> pmsBaseAttrInfos =  pmsBaseAttrInfoMapper.selectAttrValueByValueIds(join);
-        return  pmsBaseAttrInfos;
+        List<PmsBaseAttrInfo> pmsBaseAttrInfos = pmsBaseAttrInfoMapper.selectAttrValueByValueIds(join);
+        return pmsBaseAttrInfos;
 
     }
 

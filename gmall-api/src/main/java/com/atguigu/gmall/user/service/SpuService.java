@@ -8,7 +8,7 @@ import com.atguigu.gmall.user.bean.PmsProductSaleAttr;
 import java.util.List;
 
 public interface SpuService {
-     List<PmsProductInfo> spuList(String catalog3Id);
+    List<PmsProductInfo> spuList(String catalog3Id);
 
     List<PmsBaseSaleAttr> baseSaleAttrList();
 

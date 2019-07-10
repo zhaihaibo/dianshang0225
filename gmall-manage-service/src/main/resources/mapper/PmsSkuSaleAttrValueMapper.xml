@@ -5,20 +5,20 @@
 <mapper namespace="com.atguigu.gmall.manage.mapper.PmsSkuSaleAttrValueMapper">
 
     <select id="checkSkuByValueIds" resultType="com.atguigu.gmall.user.bean.PmsSkuSaleAttrValue">
-         select * from pms_sku_sale_attr_value where sale_attr_value_id in (${join});
+        select * from pms_sku_sale_attr_value where sale_attr_value_id in (${join});
 
     </select>
 
     <select id="checkSkuByValueIdsTwo" resultMap="checkSkuByValueIdsPlusMap">
         SELECT
-            ssav.*,si.*,ssav.id as ssav_id ,si.id as si_id
+        ssav.*,si.*,ssav.id as ssav_id ,si.id as si_id
         FROM
-            pms_sku_sale_attr_value ssav,
-            pms_sku_info si
+        pms_sku_sale_attr_value ssav,
+        pms_sku_info si
         WHERE
-            ssav.sale_attr_value_id IN (${join})
+        ssav.sale_attr_value_id IN (${join})
         AND
-          ssav.sku_id = si.id
+        ssav.sku_id = si.id
     </select>
 
     <resultMap id="checkSkuByValueIdsPlusMap" type="com.atguigu.gmall.user.bean.PmsSkuInfo" autoMapping="true">
@@ -31,14 +31,14 @@
 
     <select id="checkSkuBySpuId" resultMap="checkSkuBySpuIdMap">
         SELECT
-            ssav.*,si.*,ssav.id as ssav_id ,si.id as si_id
+        ssav.*,si.*,ssav.id as ssav_id ,si.id as si_id
         FROM
-            pms_sku_sale_attr_value ssav,
-            pms_sku_info si
+        pms_sku_sale_attr_value ssav,
+        pms_sku_info si
         WHERE
-           si.product_id IN (${spuId})
+        si.product_id IN (${spuId})
         AND
-          ssav.sku_id = si.id
+        ssav.sku_id = si.id
     </select>
 
     <resultMap id="checkSkuBySpuIdMap" type="com.atguigu.gmall.user.bean.PmsSkuInfo" autoMapping="true">
@@ -55,21 +55,23 @@
         psa.id as psa_id , psa.* , psav.id as psav_id ,psav.*,
         IF(ssav.sku_id,1,0) AS isChecked
         from
-          pms_product_sale_attr psa
+        pms_product_sale_attr psa
         INNER JOIN pms_product_sale_attr_value psav
         ON psa.product_id = psav.product_id
         AND psa.sale_attr_id = psav.sale_attr_id
-        LEFT JOIN pms_sku_sale_attr_value ssav ON ssav.sale_attr_id= 	psa.sale_attr_id
+        LEFT JOIN pms_sku_sale_attr_value ssav ON ssav.sale_attr_id= psa.sale_attr_id
         AND ssav.sale_attr_value_id = psav.id AND ssav.sku_id=#{skuId}
         WHERE psa.product_id = #{spuId}
     </select>
 
-    <resultMap id="selectSpuSaleAttrListCheckBySkuId" type="com.atguigu.gmall.user.bean.PmsProductSaleAttr" autoMapping="true">
+    <resultMap id="selectSpuSaleAttrListCheckBySkuId" type="com.atguigu.gmall.user.bean.PmsProductSaleAttr"
+               autoMapping="true">
         <result column="psa_id" property="id"></result>
-        <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.user.bean.PmsProductSaleAttrValue" autoMapping="true">
+        <collection property="spuSaleAttrValueList" ofType="com.atguigu.gmall.user.bean.PmsProductSaleAttrValue"
+                    autoMapping="true">
             <result column="psav_id" property="id"></result>
         </collection>
-        
+
     </resultMap>
 
 

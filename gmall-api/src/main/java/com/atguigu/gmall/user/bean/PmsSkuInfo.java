@@ -1,7 +1,6 @@
 package com.atguigu.gmall.user.bean;
 
 
-
 import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
