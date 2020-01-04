@@ -24,7 +24,7 @@ public class UmsMember implements Serializable {
     private String city;
     private String job;
     private String personalizedSignature;
-    private long sourceUid;
+    private Long sourceUid;
     private int sourceType;
     private int integration;
     private int growth;
@@ -36,32 +36,28 @@ public class UmsMember implements Serializable {
     public UmsMember() {
     }
 
-    @Override
-    public String toString() {
-        return "UmsMember{" +
-                "id='" + id + '\'' +
-                ", memberLevelId=" + memberLevelId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", phone='" + phone + '\'' +
-                ", status=" + status +
-                ", createTime=" + createTime +
-                ", icon='" + icon + '\'' +
-                ", gender=" + gender +
-                ", birthday=" + birthday +
-                ", city='" + city + '\'' +
-                ", job='" + job + '\'' +
-                ", personalizedSignature='" + personalizedSignature + '\'' +
-                ", sourceUid=" + sourceUid +
-                ", sourceType=" + sourceType +
-                ", integration=" + integration +
-                ", growth=" + growth +
-                ", luckeyCount=" + luckeyCount +
-                ", accessToken='" + accessToken + '\'' +
-                ", accessCode='" + accessCode + '\'' +
-                ", historyIntegration=" + historyIntegration +
-                '}';
+    public UmsMember(long memberLevelId, String username, String password, String nickname, String phone, int status, Date createTime, String icon, int gender, Date birthday, String city, String job, String personalizedSignature, Long sourceUid, int sourceType, int integration, int growth, int luckeyCount, String accessToken, String accessCode, int historyIntegration) {
+        this.memberLevelId = memberLevelId;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.phone = phone;
+        this.status = status;
+        this.createTime = createTime;
+        this.icon = icon;
+        this.gender = gender;
+        this.birthday = birthday;
+        this.city = city;
+        this.job = job;
+        this.personalizedSignature = personalizedSignature;
+        this.sourceUid = sourceUid;
+        this.sourceType = sourceType;
+        this.integration = integration;
+        this.growth = growth;
+        this.luckeyCount = luckeyCount;
+        this.accessToken = accessToken;
+        this.accessCode = accessCode;
+        this.historyIntegration = historyIntegration;
     }
 
     public String getId() {
@@ -176,11 +172,11 @@ public class UmsMember implements Serializable {
         this.personalizedSignature = personalizedSignature;
     }
 
-    public long getSourceUid() {
+    public Long getSourceUid() {
         return sourceUid;
     }
 
-    public void setSourceUid(long sourceUid) {
+    public void setSourceUid(Long sourceUid) {
         this.sourceUid = sourceUid;
     }
 
@@ -237,31 +233,6 @@ public class UmsMember implements Serializable {
     }
 
     public void setHistoryIntegration(int historyIntegration) {
-        this.historyIntegration = historyIntegration;
-    }
-
-    public UmsMember(String id, long memberLevelId, String username, String password, String nickname, String phone, int status, Date createTime, String icon, int gender, Date birthday, String city, String job, String personalizedSignature, long sourceUid, int sourceType, int integration, int growth, int luckeyCount, String accessToken, String accessCode, int historyIntegration) {
-        this.id = id;
-        this.memberLevelId = memberLevelId;
-        this.username = username;
-        this.password = password;
-        this.nickname = nickname;
-        this.phone = phone;
-        this.status = status;
-        this.createTime = createTime;
-        this.icon = icon;
-        this.gender = gender;
-        this.birthday = birthday;
-        this.city = city;
-        this.job = job;
-        this.personalizedSignature = personalizedSignature;
-        this.sourceUid = sourceUid;
-        this.sourceType = sourceType;
-        this.integration = integration;
-        this.growth = growth;
-        this.luckeyCount = luckeyCount;
-        this.accessToken = accessToken;
-        this.accessCode = accessCode;
         this.historyIntegration = historyIntegration;
     }
 }

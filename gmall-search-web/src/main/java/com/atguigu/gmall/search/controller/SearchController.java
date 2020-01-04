@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.thymeleaf.expression.Numbers;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -44,6 +45,7 @@ public class SearchController {
         if (set != null && set.size() > 0) {
             pmsBaseAttrInfos = attrService.getAttrValueByValueIds(set);
         }
+
         //显示搜索后的商品信息
         modelMap.put("skuLsInfoList", pmsSearchSkuInfos);
 

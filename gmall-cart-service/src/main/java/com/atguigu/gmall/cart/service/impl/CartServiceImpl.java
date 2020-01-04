@@ -43,13 +43,14 @@ public class CartServiceImpl implements CartService {
     //更新
     @Override
     public void updataCartById(OmsCartItem omsCartItemExist) {
+        //根据主键进行局部更新！
         OmsCartItem omsCartItem = new OmsCartItem();
         omsCartItem.setQuantity(omsCartItemExist.getQuantity());
         omsCartItem.setTotalPrice(omsCartItemExist.getPrice().multiply(omsCartItemExist.getQuantity()));
 
         Example example = new Example(OmsCartItem.class);
         Example.Criteria criteria = example.createCriteria();
-        criteria.andEqualTo(omsCartItemExist.getId());
+        criteria.andEqualTo("id",omsCartItemExist.getId());
 
         omsCartItemMapper.updateByExampleSelective(omsCartItemExist, example);
 
@@ -117,11 +118,14 @@ public class CartServiceImpl implements CartService {
             jedis = redisUtil.getJedis();
             OmsCartItem omsCartItem = new OmsCartItem();
             omsCartItem.setMemberId(memberId);
+            //获取当前用户id下的所有购物车商品
             List<OmsCartItem> omsCartItems = omsCartItemMapper.select(omsCartItem);
             HashMap<String, String> hashMap = new HashMap<>();
+            //遍历所有购物车商品，并存储在map集合中 key：当前商品的skuid  val：当前商品
             for (OmsCartItem cartItem : omsCartItems) {
                 hashMap.put(cartItem.getProductSkuId(), JSON.toJSONString(cartItem));
             }
+            //把当前用户下的所有商品通过redis的 hash操作，放进缓存！
             String key = "user:" + memberId + ":cart";
             jedis.hmset(key, hashMap);
         } finally {

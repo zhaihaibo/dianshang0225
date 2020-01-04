@@ -3,6 +3,7 @@ package com.atguigu.gmall.cart.controller;
 import com.alibaba.dubbo.config.annotation.Reference;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.atguigu.gmall.annation.LoginRequired;
 import com.atguigu.gmall.user.bean.OmsCartItem;
 import com.atguigu.gmall.user.bean.PmsSkuInfo;
 import com.atguigu.gmall.user.service.CartService;
@@ -11,6 +12,7 @@ import com.atguigu.gmall.util.CookieUtil;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.cookie.Cookie;
+import org.junit.Test;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,15 +32,19 @@ public class CartController {
     @Reference
     CartService cartService;
 
+    //加这个注解是因为：进入拦截器中，想蹭一下拦截器中在域对象中放置的用户信息！
+    @LoginRequired
     @RequestMapping("checkCart")
     public String checkCart(HttpServletRequest Request, HttpServletResponse Response, ModelMap modelMap, OmsCartItem omsCartItem) {
 
         List<OmsCartItem> omsCartItems = new ArrayList<>();
         //查询用户是否登陆
-        String memberId = "1";
+        String memberId = (String) Request.getAttribute("memberId");
+        String nickname = (String) Request.getAttribute("nickname");
+
         if (StringUtils.isBlank(memberId)) {
             //没有登陆，找cookie
-            String catListCookie = CookieUtil.getCookieValue(Request, "catListCookie", true);
+            String catListCookie = CookieUtil.getCookieValue(Request, "cartListCookie", true);
             if (StringUtils.isNotBlank(catListCookie)) {
                 omsCartItems = JSON.parseArray(catListCookie, OmsCartItem.class);
                 for (OmsCartItem cartItem : omsCartItems) {
@@ -60,15 +67,17 @@ public class CartController {
         return "cartListInner";
     }
 
+    @LoginRequired
     @RequestMapping("cartList")
     public String toTrade(HttpServletRequest Request, HttpServletResponse Response, ModelMap modelMap) {
 
         List<OmsCartItem> list = new ArrayList<>();
         //判断用户是否登陆
-        String memberId = "1";
+        String memberId = (String) Request.getAttribute("memberId");
+        String nickname = (String) Request.getAttribute("nickname");
         //如果没有登陆，取cookie中的数据
         if (StringUtils.isBlank(memberId)) {
-            String catListCookie = CookieUtil.getCookieValue(Request, "catListCookie", true);
+            String catListCookie = CookieUtil.getCookieValue(Request, "cartListCookie", true);
             if (StringUtils.isNotBlank(catListCookie)) {
                 list = JSON.parseArray(catListCookie, OmsCartItem.class);
             }
@@ -98,6 +107,7 @@ public class CartController {
 
     }
 
+    @LoginRequired
     @RequestMapping("addToCart")
     public String addToCart(HttpServletRequest Request, HttpServletResponse Response, OmsCartItem omsCartItem) {
         PmsSkuInfo pmsSkuInfo = skuService.getSkuInfoById(omsCartItem.getProductSkuId(), Request.getRemoteAddr());
@@ -117,17 +127,19 @@ public class CartController {
 
         //加入购物车
         //判断用户是否登陆
-        String memberId = "1";
+        String memberId = (String) Request.getAttribute("memberId");
+        String nickname = (String) Request.getAttribute("nickname");
         //没登陆在cookie中操作
         if (StringUtils.isBlank(memberId)) {
             //判断cookie是否有购物车数据
-            String catListCookie = CookieUtil.getCookieValue(Request, "catListCookie", true);
+            String catListCookie = CookieUtil.getCookieValue(Request, "cartListCookie", true);
             if (StringUtils.isBlank(catListCookie)) {
                 //如果cookie为空直接添加
                 omsCartItems.add(omsCartItem);
             } else {
                 //如果cookie中购物车不为空，看是更新还是新增
                 omsCartItems = JSON.parseArray(catListCookie, OmsCartItem.class);
+                //看是新车还是老车
                 boolean b = if_new_cart(omsCartItems, omsCartItem);
                 //如果b=true，购物车中没有，新增
                 if (b) {
@@ -136,7 +148,9 @@ public class CartController {
                     //如果b=false，购物车中有，更新
                     for (OmsCartItem cartItem : omsCartItems) {
                         if (cartItem.getProductSkuId().equals(omsCartItem.getProductSkuId())) {
-                            cartItem.setQuantity(cartItem.getQuantity().add(omsCartItem.getQuantity()));
+                            BigDecimal i= omsCartItem.getQuantity();
+                            BigDecimal add = cartItem.getQuantity().add(omsCartItem.getQuantity());
+                            cartItem.setQuantity(add);
                             cartItem.setQuantity(cartItem.getPrice().multiply(cartItem.getQuantity()));
                             break;
                         }
@@ -144,6 +158,7 @@ public class CartController {
                 }
             }
             String cookieJSON = JSON.toJSONString(omsCartItems);
+            System.out.println(cookieJSON+"---------------");
             CookieUtil.setCookie(Request, Response, "cartListCookie", cookieJSON, 1000 * 60 * 60 * 24, true);//cookie工具类
 
 
@@ -166,7 +181,6 @@ public class CartController {
 
         }
 
-
         return "redirect:/success.html";
 
     }
@@ -181,4 +195,9 @@ public class CartController {
         }
         return b;
     }
+
+
+
+
+
 }
